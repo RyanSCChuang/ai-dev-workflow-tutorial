@@ -131,3 +131,17 @@ def test_sales_by_region_sums_and_sorts_highest_first():
     assert list(result.columns) == ["region", "sales"]
     assert list(result["region"]) == ["North", "West", "South"]
     assert list(result["sales"]) == [90.0, 70.0, 5.0]
+
+
+def test_real_data_matches_the_prd_expected_output():
+    df = load_sales()
+    assert total_orders(df) == 482
+    assert total_sales(df) == pytest.approx(116500.21, abs=0.01)
+    assert format_currency(total_sales(df)) == "$116,500"
+    categories = sales_by_category(df)
+    assert len(categories) == 5
+    assert categories["category"].iloc[0] == "Electronics"
+    regions = sales_by_region(df)
+    assert len(regions) == 4
+    assert regions["region"].iloc[0] == "North"
+    assert len(monthly_sales(df)) == 12
