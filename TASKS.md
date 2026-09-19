@@ -9,9 +9,6 @@ Each milestone moves through To Do -> In Progress -> Done.
 - Changes committed with the milestone ID in the message
 
 ## To Do
-- [ ] **TASK-3: Sales trend chart** (PRD M4; FR-2)
-  - [ ] Line chart of sales over time (daily or monthly) with correct data and interactive tooltips
-  - Commit:
 - [ ] **TASK-4: Category and region breakdowns** (PRD M5; FR-3, FR-4)
   - [ ] Bar chart of sales by category, all 5 categories, sorted highest to lowest, with tooltips
   - [ ] Bar chart of sales by region, all 4 regions, sorted highest to lowest, with tooltips
@@ -37,3 +34,7 @@ Each milestone moves through To Do -> In Progress -> Done.
   - [x] Total Sales and Total Orders shown prominently, with currency ($X,XXX,XXX) and thousands separators
   - Commit: 678021e
   - Notes: clean
+- [x] **TASK-3: Sales trend chart** (PRD M4; FR-2)
+  - [x] Line chart of sales over time (daily or monthly) with correct data and interactive tooltips
+  - Commit: a2d3229
+  - Notes: clean; the plan's smoke check only counted charts, so I also decoded the figure and confirmed 12 monthly points that sum to $116,500.21
