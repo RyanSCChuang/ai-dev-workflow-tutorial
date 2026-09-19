@@ -9,10 +9,6 @@ Each milestone moves through To Do -> In Progress -> Done.
 - Changes committed with the milestone ID in the message
 
 ## To Do
-- [ ] **TASK-5: Testing and refinement** (PRD M6; Acceptance Criteria, NFR-1, NFR-2)
-  - [ ] Values match the CSV: about $116,500 total sales and 482 orders
-  - [ ] Dashboard runs without errors or warnings, with clear labels and a professional appearance
-  - Commit:
 - [ ] **TASK-6: Deploy to Streamlit Community Cloud** (PRD M7; NFR-5) (human-executed, from `main` after the merge)
   - [ ] Deployed from the `main` branch and reachable at a public URL
   - [ ] Live URL recorded here and near the top of README.md
@@ -39,3 +35,8 @@ Each milestone moves through To Do -> In Progress -> Done.
   - [x] Bar chart of sales by region, all 4 regions, sorted highest to lowest, with tooltips
   - Commit: 51cc4d0
   - Notes: clean; decoded both figures (5 and 4 bars, each sums to $116,500.21, dollar tooltips); "highest bar on top" depends on Plotly's axis-order setting and can only be confirmed by eye, which is TASK-5's walk-through
+- [x] **TASK-5: Testing and refinement** (PRD M6; Acceptance Criteria, NFR-1, NFR-2)
+  - [x] Values match the CSV: about $116,500 total sales and 482 orders
+  - [x] Dashboard runs without errors or warnings, with clear labels and a professional appearance
+  - Commit: 2483d48
+  - Notes: 15 tests pass (real-data test matches the PRD); page loads in 0.41 s; 0 warnings recorded; owner confirmed by eye the KPIs, 3 charts, Electronics and North on top, dollar tooltips, no error box, and a second browser; my plan's curl-based warning check can't run the app, so I recorded warnings during a real run instead; trimmed the doubled machine path from the error message (test first) so a public deploy shows only data/sales-data.csv
