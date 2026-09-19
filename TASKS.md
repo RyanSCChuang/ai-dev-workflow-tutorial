@@ -9,10 +9,6 @@ Each milestone moves through To Do -> In Progress -> Done.
 - Changes committed with the milestone ID in the message
 
 ## To Do
-- [ ] **TASK-4: Category and region breakdowns** (PRD M5; FR-3, FR-4)
-  - [ ] Bar chart of sales by category, all 5 categories, sorted highest to lowest, with tooltips
-  - [ ] Bar chart of sales by region, all 4 regions, sorted highest to lowest, with tooltips
-  - Commit:
 - [ ] **TASK-5: Testing and refinement** (PRD M6; Acceptance Criteria, NFR-1, NFR-2)
   - [ ] Values match the CSV: about $116,500 total sales and 482 orders
   - [ ] Dashboard runs without errors or warnings, with clear labels and a professional appearance
@@ -38,3 +34,8 @@ Each milestone moves through To Do -> In Progress -> Done.
   - [x] Line chart of sales over time (daily or monthly) with correct data and interactive tooltips
   - Commit: a2d3229
   - Notes: clean; the plan's smoke check only counted charts, so I also decoded the figure and confirmed 12 monthly points that sum to $116,500.21
+- [x] **TASK-4: Category and region breakdowns** (PRD M5; FR-3, FR-4)
+  - [x] Bar chart of sales by category, all 5 categories, sorted highest to lowest, with tooltips
+  - [x] Bar chart of sales by region, all 4 regions, sorted highest to lowest, with tooltips
+  - Commit: 51cc4d0
+  - Notes: clean; decoded both figures (5 and 4 bars, each sums to $116,500.21, dollar tooltips); "highest bar on top" depends on Plotly's axis-order setting and can only be confirmed by eye, which is TASK-5's walk-through
