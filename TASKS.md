@@ -9,10 +9,6 @@ Each milestone moves through To Do -> In Progress -> Done.
 - Changes committed with the milestone ID in the message
 
 ## To Do
-- [ ] **TASK-1: Project setup and data loading** (PRD M1, M2; FR-5)
-  - [ ] App runs with `streamlit run app.py` and shows a title
-  - [ ] Loads `data/sales-data.csv` (date, numeric, and categorical columns); handles a missing file cleanly
-  - Commit:
 - [ ] **TASK-2: KPI scorecards** (PRD M3; FR-1)
   - [ ] Total Sales and Total Orders shown prominently, with currency ($X,XXX,XXX) and thousands separators
   - Commit:
@@ -35,3 +31,8 @@ Each milestone moves through To Do -> In Progress -> Done.
 ## In Progress
 
 ## Done
+- [x] **TASK-1: Project setup and data loading** (PRD M1, M2; FR-5)
+  - [x] App runs with `streamlit run app.py` and shows a title
+  - [x] Loads `data/sales-data.csv` (date, numeric, and categorical columns); handles a missing file cleanly
+  - Commit: 63d7c31
+  - Notes: default Python 3.15.0rc1 can't install Streamlit (no pyarrow build), so the venv uses a verified standalone Python 3.12; `data.py` shares a name with the `data/` folder (works, a module beats a folder without `__init__.py`); missing-file error shows the path twice (left as planned, polish in TASK-5)
