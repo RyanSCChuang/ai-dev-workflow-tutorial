@@ -9,9 +9,6 @@ Each milestone moves through To Do -> In Progress -> Done.
 - Changes committed with the milestone ID in the message
 
 ## To Do
-- [ ] **TASK-2: KPI scorecards** (PRD M3; FR-1)
-  - [ ] Total Sales and Total Orders shown prominently, with currency ($X,XXX,XXX) and thousands separators
-  - Commit:
 - [ ] **TASK-3: Sales trend chart** (PRD M4; FR-2)
   - [ ] Line chart of sales over time (daily or monthly) with correct data and interactive tooltips
   - Commit:
@@ -36,3 +33,7 @@ Each milestone moves through To Do -> In Progress -> Done.
   - [x] Loads `data/sales-data.csv` (date, numeric, and categorical columns); handles a missing file cleanly
   - Commit: 63d7c31
   - Notes: default Python 3.15.0rc1 can't install Streamlit (no pyarrow build), so the venv uses a verified standalone Python 3.12; `data.py` shares a name with the `data/` folder (works, a module beats a folder without `__init__.py`); missing-file error shows the path twice (left as planned, polish in TASK-5)
+- [x] **TASK-2: KPI scorecards** (PRD M3; FR-1)
+  - [x] Total Sales and Total Orders shown prominently, with currency ($X,XXX,XXX) and thousands separators
+  - Commit: 678021e
+  - Notes: clean
