@@ -10,6 +10,8 @@ from data import (
     format_currency,
     load_sales,
     monthly_sales,
+    sales_by_category,
+    sales_by_region,
     total_orders,
     total_sales,
 )
@@ -21,6 +23,22 @@ st.set_page_config(page_title="ShopSmart Sales Dashboard", layout="wide")
 def get_sales():
     """Load the sales CSV once and reuse it (keeps page loads fast)."""
     return load_sales(DEFAULT_PATH)
+
+
+def sales_bar_chart(data, column, title):
+    """Horizontal bars of sales, highest bar at the top, tooltips in whole dollars."""
+    fig = px.bar(
+        data,
+        x="sales",
+        y=column,
+        orientation="h",
+        title=title,
+        labels={"sales": "Sales ($)", column: column.title()},
+    )
+    fig.update_yaxes(categoryorder="total ascending")
+    fig.update_xaxes(tickprefix="$", tickformat=",")
+    fig.update_traces(hovertemplate="%{y}<br>$%{x:,.0f}<extra></extra>")
+    return fig
 
 
 st.title("ShopSmart Sales Dashboard")
@@ -53,3 +71,14 @@ trend_fig.update_xaxes(tickformat="%b %Y", dtick="M1")
 trend_fig.update_yaxes(tickprefix="$", tickformat=",")
 trend_fig.update_traces(hovertemplate="%{x|%b %Y}<br>$%{y:,.0f}<extra></extra>")
 st.plotly_chart(trend_fig, width="stretch")
+
+# Breakdowns: sales by category and by region, side by side.
+category_col, region_col = st.columns(2)
+category_col.plotly_chart(
+    sales_bar_chart(sales_by_category(sales), "category", "Sales by Category"),
+    width="stretch",
+)
+region_col.plotly_chart(
+    sales_bar_chart(sales_by_region(sales), "region", "Sales by Region"),
+    width="stretch",
+)
