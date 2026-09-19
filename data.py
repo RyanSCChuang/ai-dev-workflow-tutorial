@@ -60,3 +60,11 @@ def total_orders(df):
 def format_currency(value):
     """Whole dollars with thousands separators, e.g. 116500.21 -> $116,500."""
     return f"${value:,.0f}"
+
+
+def monthly_sales(df):
+    """Sales summed per calendar month, oldest first. Columns: month, sales."""
+    months = df["date"].dt.to_period("M").dt.to_timestamp()
+    result = df.groupby(months)["total_amount"].sum().reset_index()
+    result.columns = ["month", "sales"]
+    return result

@@ -2,7 +2,7 @@
 import pandas as pd
 import pytest
 
-from data import format_currency, load_sales, total_orders, total_sales
+from data import format_currency, load_sales, monthly_sales, total_orders, total_sales
 
 HEADER = "date,order_id,product,category,region,quantity,unit_price,total_amount\n"
 
@@ -85,3 +85,15 @@ def test_format_currency_rounds_to_whole_dollars():
 def test_format_currency_handles_small_and_zero_values():
     assert format_currency(42) == "$42"
     assert format_currency(0) == "$0"
+
+
+def test_monthly_sales_sums_each_month_oldest_first():
+    df = make_sales([
+        ("2024-02-10", "A", "Audio", "North", 50.0),
+        ("2024-01-05", "B", "Audio", "North", 100.0),
+        ("2024-01-20", "C", "Wearables", "South", 25.0),
+    ])
+    result = monthly_sales(df)
+    assert list(result.columns) == ["month", "sales"]
+    assert list(result["month"]) == [pd.Timestamp("2024-01-01"), pd.Timestamp("2024-02-01")]
+    assert list(result["sales"]) == [125.0, 50.0]
