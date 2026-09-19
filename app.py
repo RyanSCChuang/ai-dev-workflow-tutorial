@@ -47,7 +47,7 @@ st.title("ShopSmart Sales Dashboard")
 try:
     sales = get_sales()
 except (FileNotFoundError, ValueError) as error:
-    st.error(f"Could not load the sales data ({DEFAULT_PATH}): {error}")
+    st.error(f"Could not load the sales data. {error}")
     st.stop()
 
 st.caption(f"Source: data/sales-data.csv, {len(sales):,} rows")

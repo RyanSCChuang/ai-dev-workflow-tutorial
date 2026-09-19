@@ -145,3 +145,10 @@ def test_real_data_matches_the_prd_expected_output():
     assert len(regions) == 4
     assert regions["region"].iloc[0] == "North"
     assert len(monthly_sales(df)) == 12
+
+
+def test_load_sales_error_names_the_file_but_not_the_full_folder_path(tmp_path):
+    with pytest.raises(FileNotFoundError) as error:
+        load_sales(tmp_path / "sales.csv")
+    assert "sales.csv" in str(error.value)
+    assert str(tmp_path) not in str(error.value)

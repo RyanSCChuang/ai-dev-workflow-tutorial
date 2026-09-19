@@ -29,21 +29,23 @@ def load_sales(path=DEFAULT_PATH):
     required column is missing, a date cannot be parsed, or there are no rows.
     """
     path = Path(path)
+    # Short "folder/file" label for messages, so no machine-specific path is shown.
+    label = f"{path.parent.name}/{path.name}"
     if not path.exists():
-        raise FileNotFoundError(f"Sales data file not found: {path}")
+        raise FileNotFoundError(f"Sales data file not found: {label}")
     try:
         df = pd.read_csv(path)
     except pd.errors.EmptyDataError:
-        raise ValueError(f"Sales data file has no rows: {path}") from None
+        raise ValueError(f"Sales data file has no rows: {label}") from None
     missing = [column for column in REQUIRED_COLUMNS if column not in df.columns]
     if missing:
         raise ValueError(f"Sales data file is missing columns: {', '.join(missing)}")
     if df.empty:
-        raise ValueError(f"Sales data file has no rows: {path}")
+        raise ValueError(f"Sales data file has no rows: {label}")
     try:
         df["date"] = pd.to_datetime(df["date"])
     except (ValueError, TypeError) as error:
-        raise ValueError(f"Could not parse dates in {path}: {error}") from None
+        raise ValueError(f"Could not parse dates in {label}: {error}") from None
     return df
 
 
