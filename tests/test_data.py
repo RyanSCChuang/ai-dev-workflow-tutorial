@@ -2,7 +2,15 @@
 import pandas as pd
 import pytest
 
-from data import format_currency, load_sales, monthly_sales, total_orders, total_sales
+from data import (
+    format_currency,
+    load_sales,
+    monthly_sales,
+    sales_by_category,
+    sales_by_region,
+    total_orders,
+    total_sales,
+)
 
 HEADER = "date,order_id,product,category,region,quantity,unit_price,total_amount\n"
 
@@ -97,3 +105,29 @@ def test_monthly_sales_sums_each_month_oldest_first():
     assert list(result.columns) == ["month", "sales"]
     assert list(result["month"]) == [pd.Timestamp("2024-01-01"), pd.Timestamp("2024-02-01")]
     assert list(result["sales"]) == [125.0, 50.0]
+
+
+def test_sales_by_category_sums_and_sorts_highest_first():
+    df = make_sales([
+        ("2024-01-05", "A", "Accessories", "North", 10.0),
+        ("2024-01-06", "B", "Electronics", "North", 300.0),
+        ("2024-01-07", "C", "Audio", "South", 50.0),
+        ("2024-01-08", "D", "Audio", "South", 70.0),
+    ])
+    result = sales_by_category(df)
+    assert list(result.columns) == ["category", "sales"]
+    assert list(result["category"]) == ["Electronics", "Audio", "Accessories"]
+    assert list(result["sales"]) == [300.0, 120.0, 10.0]
+
+
+def test_sales_by_region_sums_and_sorts_highest_first():
+    df = make_sales([
+        ("2024-01-05", "A", "Audio", "West", 40.0),
+        ("2024-01-06", "B", "Audio", "North", 90.0),
+        ("2024-01-07", "C", "Audio", "West", 30.0),
+        ("2024-01-08", "D", "Audio", "South", 5.0),
+    ])
+    result = sales_by_region(df)
+    assert list(result.columns) == ["region", "sales"]
+    assert list(result["region"]) == ["North", "West", "South"]
+    assert list(result["sales"]) == [90.0, 70.0, 5.0]
