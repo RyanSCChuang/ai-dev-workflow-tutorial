@@ -14,7 +14,7 @@
 ## Global Constraints
 
 - **Repo and branch:** all work is in `/Users/ryan.alois.sky/GitHub/ai-dev-workflow-tutorial` on branch `feature/sales-dashboard`. No git worktree. The shell resets to a different directory between commands, so **every bash block starts with the `cd` line shown**.
-- **Python:** a stable 3.12 or 3.13 only. The machine's default `python3` is 3.15.0rc1, on which `pyarrow` (and therefore Streamlit) does not install.
+- **Python:** a stable 3.12 or 3.13 only. The machine's default `python3` is 3.15.0rc1, on which `pyarrow` (and therefore Streamlit) does not install. With the owner's approval, a standalone CPython 3.12.14 (python-build-standalone release 20260901, aarch64 macOS, SHA-256 verified against the publisher's checksum file) was installed at `~/.local/python-3.12-standalone/`; P1 finds and uses it.
 - **Environment:** plain virtual environment in `venv/` (already covered by `.gitignore`) with one `requirements.txt`. No uv, no conda. Never create `uv.lock`, `Pipfile` or `pyproject.toml` (Streamlit Cloud reads those before `requirements.txt`).
 - **Interfaces (exact names):** `data.py` exports `DEFAULT_PATH`, `load_sales`, `total_sales`, `total_orders`, `monthly_sales`, `sales_by_category`, `sales_by_region`, `format_currency`. `data.py` never imports Streamlit.
 - **Numbers and labels:** trend chart is monthly (12 points); Total Sales is whole dollars (`$116,500`); Total Orders counts distinct `order_id`; page title is exactly `ShopSmart Sales Dashboard`; bar charts are horizontal, highest bar at the top, tooltips in whole dollars.
@@ -57,7 +57,8 @@ for candidate in \
   /Library/Frameworks/Python.framework/Versions/3.13/bin/python3.13 \
   /Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12 \
   /usr/local/bin/python3.13 \
-  /usr/local/bin/python3.12; do
+  /usr/local/bin/python3.12 \
+  "$HOME/.local/python-3.12-standalone/python/bin/python3.12"; do
   if [ -x "$candidate" ]; then PY="$candidate"; break; fi
 done
 if [ -z "$PY" ]; then
