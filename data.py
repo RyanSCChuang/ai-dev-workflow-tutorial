@@ -45,3 +45,18 @@ def load_sales(path=DEFAULT_PATH):
     except (ValueError, TypeError) as error:
         raise ValueError(f"Could not parse dates in {path}: {error}") from None
     return df
+
+
+def total_sales(df):
+    """Sum of every order's total_amount."""
+    return float(df["total_amount"].sum())
+
+
+def total_orders(df):
+    """Number of distinct orders (each order_id counts once)."""
+    return int(df["order_id"].nunique())
+
+
+def format_currency(value):
+    """Whole dollars with thousands separators, e.g. 116500.21 -> $116,500."""
+    return f"${value:,.0f}"
