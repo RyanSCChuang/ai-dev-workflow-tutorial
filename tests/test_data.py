@@ -152,3 +152,26 @@ def test_load_sales_error_names_the_file_but_not_the_full_folder_path(tmp_path):
         load_sales(tmp_path / "sales.csv")
     assert "sales.csv" in str(error.value)
     assert str(tmp_path) not in str(error.value)
+
+
+def test_load_sales_zero_byte_file_raises_value_error(tmp_path):
+    path = tmp_path / "sales.csv"
+    path.write_bytes(b"")
+    with pytest.raises(ValueError, match="no rows"):
+        load_sales(path)
+
+
+def test_load_sales_blank_date_raises_value_error(tmp_path):
+    path = write_csv(
+        tmp_path,
+        "2024-01-03,ORD-1,Phone Case,Accessories,South,3,24.99,74.97\n"
+        ",ORD-2,Phone Case,Accessories,South,1,24.99,24.99\n",
+    )
+    with pytest.raises(ValueError, match="blank"):
+        load_sales(path)
+
+
+def test_load_sales_non_numeric_amount_raises_value_error(tmp_path):
+    path = write_csv(tmp_path, "2024-01-03,ORD-1,Phone Case,Accessories,South,3,24.99,abc\n")
+    with pytest.raises(ValueError, match="non-numeric"):
+        load_sales(path)

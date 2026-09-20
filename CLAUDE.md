@@ -42,7 +42,7 @@ Contracts that span both files:
 
 Only `data.py` is unit-tested (`tests/test_data.py`, tiny hand-built DataFrames via `make_sales`, plus one real-data test asserting 482 orders and about $116,500). Write the test first for `data.py` changes. Chart and layout code is deliberately not unit-tested; check it by running the app.
 
-To smoke-check the page without a browser, run it through `streamlit.testing.v1.AppTest.from_file("app.py").run()` and assert on `at.metric`, `at.error`, and `at.get("plotly_chart")`. To inspect a chart's contents, read `json.loads(chart.proto.spec)`. This Plotly version sends numbers as base64 typed arrays (`{"dtype", "bdata"}`), so decode them with `numpy.frombuffer` rather than indexing.
+To smoke-check the page without a browser, run it through `streamlit.testing.v1.AppTest.from_file("app.py").run()` and assert on `at.metric`, `at.error`, and `at.get("plotly_chart")`. To inspect a chart's contents, read `json.loads(chart.proto.spec)`. This Plotly version sends numbers as base64 typed arrays (`{"dtype", "bdata"}`), so decode them with `numpy.frombuffer` rather than indexing. `AppTest` runs share `st.cache_data` within one Python process, so call `st.cache_data.clear()` between runs that swap the CSV, or the second run silently reuses the first run's data.
 
 ## Environment
 

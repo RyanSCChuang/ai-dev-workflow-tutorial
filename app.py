@@ -26,7 +26,7 @@ def get_sales():
 
 
 def sales_bar_chart(data, column, title):
-    """Horizontal bars of sales, highest bar at the top, tooltips in whole dollars."""
+    """Horizontal bars of sales, highest bar at the top, tooltips with exact dollars and cents."""
     fig = px.bar(
         data,
         x="sales",
@@ -37,7 +37,7 @@ def sales_bar_chart(data, column, title):
     )
     fig.update_yaxes(categoryorder="total ascending")
     fig.update_xaxes(tickprefix="$", tickformat=",")
-    fig.update_traces(hovertemplate="%{y}<br>$%{x:,.0f}<extra></extra>")
+    fig.update_traces(hovertemplate="%{y}<br>$%{x:,.2f}<extra></extra>")
     return fig
 
 
@@ -69,7 +69,7 @@ trend_fig = px.line(
 )
 trend_fig.update_xaxes(tickformat="%b %Y", dtick="M1")
 trend_fig.update_yaxes(tickprefix="$", tickformat=",")
-trend_fig.update_traces(hovertemplate="%{x|%b %Y}<br>$%{y:,.0f}<extra></extra>")
+trend_fig.update_traces(hovertemplate="%{x|%b %Y}<br>$%{y:,.2f}<extra></extra>")
 st.plotly_chart(trend_fig, width="stretch")
 
 # Breakdowns: sales by category and by region, side by side.

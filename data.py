@@ -21,12 +21,15 @@ REQUIRED_COLUMNS = [
     "total_amount",
 ]
 
+NUMERIC_COLUMNS = ["quantity", "unit_price", "total_amount"]
+
 
 def load_sales(path=DEFAULT_PATH):
     """Read the sales CSV into a DataFrame with `date` parsed as a date.
 
     Raises FileNotFoundError if the file is missing, and ValueError if a
-    required column is missing, a date cannot be parsed, or there are no rows.
+    required column is missing, a date is blank or cannot be parsed, a number
+    column has non-numeric values, or there are no rows.
     """
     path = Path(path)
     # Short "folder/file" label for messages, so no machine-specific path is shown.
@@ -46,6 +49,15 @@ def load_sales(path=DEFAULT_PATH):
         df["date"] = pd.to_datetime(df["date"])
     except (ValueError, TypeError) as error:
         raise ValueError(f"Could not parse dates in {label}: {error}") from None
+    # A blank date becomes NaT; reject it so the trend can never disagree with the KPIs.
+    blank_dates = int(df["date"].isna().sum())
+    if blank_dates:
+        raise ValueError(f"Could not parse dates in {label}: {blank_dates} blank date(s)")
+    for column in NUMERIC_COLUMNS:
+        try:
+            df[column] = pd.to_numeric(df[column])
+        except (ValueError, TypeError):
+            raise ValueError(f"Column '{column}' has non-numeric values in {label}") from None
     return df
 
 
