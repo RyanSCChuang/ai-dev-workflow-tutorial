@@ -1,7 +1,7 @@
 # Design: ShopSmart Sales Dashboard
 
 **Date:** 2026-09-19
-**Status:** Draft for review, pending approval before an implementation plan is written
+**Status:** Approved and implemented on `feature/sales-dashboard`. Where the built code differs from the text below, see "Post-build amendments" at the end.
 **Source requirements:** `prd/ecommerce-analytics.md` (Phase 1 only)
 **Milestone board:** `TASKS.md` (TASK-1 to TASK-6)
 
@@ -171,3 +171,11 @@ root.
 - Anything in PRD Phase 2 (see Scope).
 - Date-range filtering, a file-upload fallback, or extra charts.
 - Automated tests of Streamlit rendering.
+
+## Post-build amendments (2026-09-20)
+
+The text above is the design as approved. These points record where the built code deliberately differs from it, so the spec and the code agree.
+
+- **Error message shows a short label, not the expected path.** The Decisions table and the `app.py` behaviour list say the friendly error names the expected path. As built, `load_sales` messages use a short `folder/file` label (`data/sales-data.csv`) and `app.py` prints the message once, so no machine-specific path appears on a public deployment. Decided in TASK-5 (commit `2483d48`), test-first.
+- **Default CSV path resolves next to `data.py`.** The interface table shows `load_sales(path="data/sales-data.csv")`. As built, `DEFAULT_PATH = Path(__file__).parent / "data" / "sales-data.csv"`: the same file, but found from any working directory, including Streamlit Cloud.
+- **Python version.** The Environment section requires a stable 3.12 or 3.13. The tutorial guide requires 3.11 or higher, so 3.11 to 3.13 is acceptable. The build used a checksum-verified standalone Python 3.12.14, because the machine's default 3.15.0rc1 cannot install Streamlit (no `pyarrow` build).

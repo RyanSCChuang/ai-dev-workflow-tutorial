@@ -4,15 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A ShopSmart e-commerce sales dashboard (Streamlit + Plotly + pandas) built from `prd/ecommerce-analytics.md`, Phase 1 only. The repo is also a course tutorial: `README.md`, `pre-work-setup.md`, `workshop-build-deploy.md`, `codex-companion.md`, `capstone-tools.md` and `prd/` are upstream course material, so don't edit them. The design lives in `docs/superpowers/specs/`, the implementation plan in `docs/superpowers/plans/`.
+A ShopSmart e-commerce sales dashboard (Streamlit + Plotly + pandas) built from `prd/ecommerce-analytics.md`, Phase 1 only. The repo is also a course tutorial: `README.md`, `pre-work-setup.md`, `workshop-build-deploy.md`, `codex-companion.md`, `capstone-tools.md` and `prd/` are upstream course material, so don't edit them. The one exception is `README.md`: TASK-6 (guide section 5.2) adds the live dashboard URL near its top. The design lives in `docs/superpowers/specs/`, the implementation plan in `docs/superpowers/plans/`.
 
 ## Commands
 
 Everything runs from the repo root (`data.py` is imported as a top-level module, so tests and the app break from other directories).
 
 ```bash
-# one-time setup: build venv/ from a STABLE Python (see Environment), then install
-~/.local/python-3.12-standalone/python/bin/python3.12 -m venv venv
+# one-time setup: build venv/ from any STABLE Python 3.11-3.13 (see Environment), then install
+python3.13 -m venv venv        # or python3.12 / python3.11; never the 3.15 release candidate
 venv/bin/pip install -r requirements.txt
 
 # run the dashboard (default http://localhost:8501)
@@ -46,7 +46,7 @@ To smoke-check the page without a browser, run it through `streamlit.testing.v1.
 
 ## Environment
 
-- The machine's default `python3` is 3.15.0rc1, on which `pyarrow` (and so Streamlit) does not install. Use a stable 3.11 to 3.13. A checksum-verified standalone 3.12 is at `~/.local/python-3.12-standalone/`.
+- The machine's default `python3` is 3.15.0rc1, on which `pyarrow` (and so Streamlit) does not install. Use a stable 3.11 to 3.13 (the tutorial guide requires 3.11+). On the owner's machine only, a checksum-verified standalone 3.12.14 is at `~/.local/python-3.12-standalone/python/bin/python3.12`, which is what `venv/` was built from.
 - Plain `venv/` plus a single `requirements.txt` only. Never add `uv.lock`, `Pipfile`, or `pyproject.toml`: Streamlit Cloud reads those before `requirements.txt` and can break the deploy.
 
 ## Workflow rules
