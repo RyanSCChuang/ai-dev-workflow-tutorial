@@ -9,11 +9,6 @@ Each milestone moves through To Do -> In Progress -> Done.
 - Changes committed with the milestone ID in the message
 
 ## To Do
-- [ ] **TASK-6: Deploy to Streamlit Community Cloud** (PRD M7; NFR-5) (human-executed, from `main` after the merge)
-  - [ ] Deployed from the `main` branch and reachable at a public URL
-  - [ ] Live URL recorded here and near the top of README.md
-  - Commit:
-
 ## In Progress
 
 ## Done
@@ -40,3 +35,9 @@ Each milestone moves through To Do -> In Progress -> Done.
   - [x] Dashboard runs without errors or warnings, with clear labels and a professional appearance
   - Commit: 2483d48
   - Notes: 15 tests pass (real-data test matches the PRD); page loads in 0.41 s; 0 warnings recorded; owner confirmed by eye the KPIs, 3 charts, Electronics and North on top, dollar tooltips, no error box, and a second browser; my plan's curl-based warning check can't run the app, so I recorded warnings during a real run instead; trimmed the doubled machine path from the error message (test first) so a public deploy shows only data/sales-data.csv
+- [x] **TASK-6: Deploy to Streamlit Community Cloud** (PRD M7; NFR-5) (human-executed, from `main` after the merge)
+  - [x] Deployed from the `main` branch and reachable at a public URL
+  - [x] Live URL recorded here and near the top of README.md
+  - Commit: c47da9b
+  - Live URL: https://sales-dashboard-ryanchuang.streamlit.app/
+  - Notes: deployed by the owner by hand from `main` at the merge commit c47da9b (the agent never deployed); an anonymous visitor reaches the app with no sign-in page (checked with a cookie jar, after my first check wrongly suggested a login wall because it dropped cookies); my headless checks can't render the live page, so the charts on the live URL are for the owner to confirm in a browser
